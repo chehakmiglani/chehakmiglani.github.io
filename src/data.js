@@ -1,4 +1,6 @@
 // All site content lives here — edit this file to update the portfolio.
+// Any list left empty ([]) hides its section automatically.
+// NOTE: placeholder content from the Feb 2026 resume — to be replaced with the latest resume.
 
 export const profile = {
   name: 'Chehak Miglani',
@@ -106,6 +108,16 @@ export const experience = [
   },
 ]
 
+export const education = [
+  {
+    degree: 'B.Tech, Computer Science',
+    school: 'Manipal University Jaipur',
+    period: '2022 — 2026',
+    detail: 'CGPA 8.91 · Dean’s List · DSA, ML, AI, DBMS, Image Processing, Software Testing',
+  },
+]
+
+// Set to null to hide the paper card.
 export const research = {
   title: 'Hybrid Meta-Ensemble Learning for PM10 Concentration Prediction',
   date: 'Apr 2025',

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
   profile, about, stats, skills, projects, experience,
-  research, achievements, certifications,
+  research, achievements, certifications, education,
 } from './data.js'
 
 const NAV = [
@@ -92,13 +92,13 @@ export default function App() {
           </dl>
         </section>
 
-        <Section id="about" label="About">
+        {about.length > 0 && <Section id="about" label="About">
           <div className="about">
             {about.map((p, i) => <p key={i}>{p}</p>)}
           </div>
-        </Section>
+        </Section>}
 
-        <Section id="work" label="Selected work">
+        {projects.length > 0 && <Section id="work" label="Selected work">
           <div className="projects">
             {projects.map((p, i) => (
               <article key={p.name} className="project">
@@ -121,7 +121,7 @@ export default function App() {
           <a className="text-link more" href={`${profile.github}?tab=repositories`} target="_blank" rel="noreferrer">
             More on GitHub <Arrow />
           </a>
-        </Section>
+        </Section>}
 
         <Section id="experience" label="Experience">
           <ol className="timeline">
@@ -135,16 +135,18 @@ export default function App() {
               </li>
             ))}
           </ol>
-          <div className="edu">
-            <div className="when">2022 — 2026</div>
-            <div>
-              <h3>B.Tech, Computer Science <span>· Manipal University Jaipur</span></h3>
-              <p>CGPA 8.91 · Dean’s List · DSA, ML, AI, DBMS, Image Processing, Software Testing</p>
+          {education.map(ed => (
+            <div className="edu" key={ed.school}>
+              <div className="when">{ed.period}</div>
+              <div>
+                <h3>{ed.degree} <span>· {ed.school}</span></h3>
+                {ed.detail && <p>{ed.detail}</p>}
+              </div>
             </div>
-          </div>
+          ))}
         </Section>
 
-        <Section id="skills" label="Skills">
+        {skills.length > 0 && <Section id="skills" label="Skills">
           <div className="skills">
             {skills.map(s => (
               <div key={s.group}>
@@ -153,20 +155,20 @@ export default function App() {
               </div>
             ))}
           </div>
-        </Section>
+        </Section>}
 
         <Section id="research" label="Research & recognition">
-          <a className="paper" href={profile.scholar} target="_blank" rel="noreferrer">
+          {research && <a className="paper" href={profile.scholar} target="_blank" rel="noreferrer">
             <span className="when">{research.date} · Paper</span>
             <h3>{research.title} <Arrow /></h3>
             <p>{research.summary}</p>
-          </a>
+          </a>}
           <div className="awards">
             {achievements.map(a => (
               <div key={a.title}><h3>{a.title}</h3><p>{a.detail}</p></div>
             ))}
           </div>
-          <p className="certs"><span>Certifications</span>{certifications.join('  ·  ')}</p>
+          {certifications.length > 0 && <p className="certs"><span>Certifications</span>{certifications.join('  ·  ')}</p>}
         </Section>
 
         <section id="contact" className="contact reveal">
