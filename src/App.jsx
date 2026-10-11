@@ -174,7 +174,7 @@ export default function App() {
         <section id="contact" className="contact reveal">
           <p className="eyebrow">Contact</p>
           <h2>Let’s build something <em>together</em>.</h2>
-          <p className="lede">I’m open to full-time software engineering and ML roles. The fastest way to reach me is email.</p>
+          <p className="lede">I’m open to software engineering and ML roles. The fastest way to reach me is email.</p>
           <a className="email" href={`mailto:${profile.email}`}>{profile.email}</a>
           <div className="hero-links">
             <a className="text-link" href={profile.github} target="_blank" rel="noreferrer">GitHub <Arrow /></a>

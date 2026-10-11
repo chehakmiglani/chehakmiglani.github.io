@@ -1,39 +1,39 @@
 // All site content lives here — edit this file to update the portfolio.
 // Any list left empty ([]) hides its section automatically.
-// NOTE: placeholder content from the Feb 2026 resume — to be replaced with the latest resume.
+// Source: Resume, August 2026.
 
 export const profile = {
   name: 'Chehak Miglani',
-  title: 'Software Engineer · Data & ML',
+  title: 'Software Engineer · Full-stack & ML',
   tagline:
-    'I build full-stack products and the machine-learning pieces that make them smarter — from FastAPI and Node backends to React and Vue frontends.',
+    'I build full-stack products and the machine-learning pieces that make them smarter — from Spring Boot, FastAPI and Node backends to React and Vue frontends.',
   location: 'Delhi, India',
   email: 'chehakmiglani.2004@gmail.com',
   github: 'https://github.com/chehakmiglani',
   linkedin: 'https://www.linkedin.com/in/chehak-miglani',
-  scholar: 'https://scholar.google.com/citations?user=4_-t85sAAAAJ',
+  scholar: 'https://scholar.google.com/citations?user=4_-t85sAAAAJ&hl=en',
   resume: '', // optional: add a link to a hosted PDF, e.g. '/resume.pdf'
 }
 
 export const about = [
-  'B.Tech Computer Science student at Manipal University Jaipur (CGPA 8.91, Dean’s List), graduating May 2026.',
-  'I’ve shipped production work across four internships — frontend performance at Nagarro, ML-backed dashboards at SDC, backend systems at TechDost, and enterprise Java at Infosys. I also published research on ensemble learning for air-quality prediction.',
+  'Computer Science graduate from Manipal University Jaipur (B.Tech, CGPA 8.91, Dean’s List).',
+  'I’ve shipped real work across three internships — full-stack enterprise Java and React at Infosys, responsive frontends at Nagarro, and backend systems at TechDost. I’ve also published research on ensemble learning for air-quality prediction, and I read, write and speak Japanese (JLPT N4, NAT-Q3).',
 ]
 
 export const stats = [
-  { value: '4', label: 'internships' },
+  { value: '3', label: 'internships' },
   { value: '8.91', label: 'CGPA' },
   { value: '2×', label: 'hackathon runner-up' },
-  { value: '1', label: 'research paper' },
+  { value: 'N3', label: 'level Japanese (NAT-Q3)' },
 ]
 
 export const skills = [
-  { group: 'Languages', items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'C / C++', 'SQL', 'PHP'] },
-  { group: 'Frontend', items: ['React', 'Vue 3', 'Tailwind', 'React Query', 'Leaflet.js', 'HTML / CSS'] },
-  { group: 'Backend', items: ['FastAPI', 'Node.js', 'Express', 'Laravel', 'JWT auth', 'REST APIs'] },
-  { group: 'Data & ML', items: ['scikit-learn', 'XGBoost', 'Neural networks', 'Pandas', 'NumPy', 'Matplotlib', 'OpenAI API'] },
-  { group: 'Data stores', items: ['MySQL', 'MongoDB'] },
-  { group: 'Tooling', items: ['Git', 'Linux', 'Vitest', 'Playwright', 'CI/CD', 'Agile'] },
+  { group: 'Languages', items: ['Java', 'JavaScript', 'TypeScript', 'Python', 'PHP', 'C / C++', 'SQL'] },
+  { group: 'Web', items: ['React', 'Vue 3', 'Tailwind CSS', 'Node.js', 'Express', 'FastAPI'] },
+  { group: 'Backend & data', items: ['Spring Boot', 'Spring Security', 'MySQL', 'MongoDB', 'REST APIs', 'JWT'] },
+  { group: 'ML / AI', items: ['scikit-learn', 'XGBoost', 'Pandas', 'NumPy', 'OpenAI API (LLM)'] },
+  { group: 'Testing & quality', items: ['JUnit', 'Mockito', 'Vitest', 'Playwright', 'SonarQube'] },
+  { group: 'Tools', items: ['Git', 'CI/CD', 'Linux', 'Agile / Scrum'] },
 ]
 
 export const projects = [
@@ -41,31 +41,28 @@ export const projects = [
     name: 'Oraculum',
     kind: 'AI career intelligence platform',
     description:
-      'Chat, resume analysis, career-roadmap generation and cover-letter writing powered by OpenAI. Handles 100+ resumes a day with 90%+ keyword-extraction accuracy, behind JWT auth and a Vitest + Playwright CI pipeline that cut testing time by 35%.',
-    stack: ['Vue 3', 'TypeScript', 'FastAPI', 'OpenAI', 'PyPDF', 'JWT', 'Playwright'],
+      'LLM-powered APIs for resume analysis, career-roadmap generation and cover-letter writing. Processes 100+ resumes a day with 90%+ keyword-extraction accuracy. JWT auth and a CI/CD pipeline cut testing time by 35% and deployment errors by 20%.',
+    stack: ['Vue 3', 'TypeScript', 'FastAPI', 'OpenAI', 'PyPDF', 'JWT', 'Vitest', 'Playwright'],
     live: 'https://oraculum-iota.vercel.app',
     code: 'https://github.com/chehakmiglani/oraculum',
-    featured: true,
   },
   {
     name: 'Rotino',
-    kind: 'On-demand food delivery',
+    kind: 'Food delivery platform',
     description:
-      'Full-stack ordering system with role-based auth and Razorpay sandbox payments. Stress-tested to 1,000+ concurrent orders at a 95% transaction success rate.',
-    stack: ['React', 'Tailwind', 'Node.js', 'Express', 'MongoDB', 'Razorpay'],
+      'Full-stack ordering system with role-based auth, stress-tested for 1,000+ concurrent orders, with a 95% payment success rate through the Razorpay sandbox API.',
+    stack: ['React', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB', 'Razorpay', 'JWT'],
     live: 'https://rotino-frontend.onrender.com',
     code: 'https://github.com/chehakmiglani/Rotinodelivery',
-    featured: true,
   },
   {
     name: 'Brahma DMS',
     kind: 'Disaster response & coordination · SAP Hackfest finalist',
     description:
-      'Real-time disaster coordination combining drone and quadbot simulation with geospatial maps. Cut incident-reporting latency by 40% and handles 200+ simultaneous reports.',
-    stack: ['PHP', 'MySQL', 'Leaflet.js', 'JavaScript', 'Robotics sim'],
+      'Real-time platform integrating drone and quadbot simulation with geospatial visualization. Reduced incident latency by 40% and handles 200+ simultaneous reports.',
+    stack: ['PHP', 'MySQL', 'Leaflet.js', 'JavaScript', 'Robotics simulation'],
     live: '',
     code: '',
-    featured: true,
   },
 ]
 
@@ -73,10 +70,10 @@ export const experience = [
   {
     role: 'Trainee Intern (Java)',
     company: 'Infosys',
-    period: 'Jan 2026 — Present',
+    period: 'Jan — May 2026',
     points: [
-      'Enterprise Java training across OOP, data structures, REST and Agile practice.',
-      'Built backend mini-projects with API integration and MySQL connectivity; took part in peer code reviews.',
+      'Worked on a full-stack enterprise project: backend services in Java, Spring Boot and Spring Security on MySQL, with responsive frontends in React and TypeScript.',
+      'Wrote clean, testable code with JUnit and Mockito, and kept code-quality standards with SonarQube.',
     ],
   },
   {
@@ -84,17 +81,7 @@ export const experience = [
     company: 'Nagarro',
     period: 'May — Jul 2025',
     points: [
-      'Built responsive frontend modules that improved mobile usability by 25%.',
-      'Optimized component rendering, cutting average page load by 1.3s.',
-    ],
-  },
-  {
-    role: 'Software Developer Intern',
-    company: 'SDC',
-    period: 'Jan — May 2025',
-    points: [
-      'Built ML-integrated web apps that raised prediction accuracy 18%, serving dashboards for 200+ users.',
-      'Automated PHP/MySQL workflows — 60% less manual effort; reports in 5 min instead of 15.',
+      'Built responsive frontend modules, improving mobile usability by 25% and cutting UI bugs by 10%.',
     ],
   },
   {
@@ -102,8 +89,8 @@ export const experience = [
     company: 'TechDost',
     period: 'Jun — Dec 2024',
     points: [
-      'Delivered an ARP system for 500+ users, reducing admin workload by 30%.',
-      'Tuned MySQL queries and error handling: 40% lower API latency, 25% higher throughput.',
+      'Built a Laravel school-management portal (ARP system) for 500+ users; automated PHP/MySQL workflows, cutting manual effort by 60% and admin workload by 30%.',
+      'Optimized MySQL queries and error handling, improving API latency by 40%.',
     ],
   },
 ]
@@ -113,7 +100,7 @@ export const education = [
     degree: 'B.Tech, Computer Science',
     school: 'Manipal University Jaipur',
     period: '2022 — 2026',
-    detail: 'CGPA 8.91 · Dean’s List · DSA, ML, AI, DBMS, Image Processing, Software Testing',
+    detail: 'CGPA 8.91 · Dean’s List (semesters 1, 2 and 4)',
   },
 ]
 
@@ -122,23 +109,23 @@ export const research = {
   title: 'Hybrid Meta-Ensemble Learning for PM10 Concentration Prediction',
   date: 'Apr 2025',
   summary:
-    'A hybrid meta-ensemble model for PM10 air-quality forecasting that achieved 12% lower MAE and 15% lower RMSE than baseline models.',
+    'A hybrid meta-ensemble model (Python, scikit-learn, XGBoost) for PM10 air-quality prediction, achieving 12% lower MAE and 15% lower RMSE than baseline models.',
 }
 
 export const achievements = [
-  { title: 'Code with Cisco 2025 — Runner-up', detail: 'Smart home automation project.' },
-  { title: 'SAP PSGitech Hackfest — Runner-up', detail: 'Disaster management platform using drones and quadbots.' },
+  { title: 'Code with Cisco 2025 — 1st Runner-up', detail: 'Smart home automation project.' },
+  { title: 'SAP PSGitech Hackfest — Runner-up', detail: 'Disaster management platform using quadbots and drones.' },
   { title: 'Dean’s List', detail: 'Semesters 1, 2 and 4 — GPA above 9.0.' },
-  { title: 'Japanese — JLPT N4, NAT Q3', detail: 'Perfect score in CBSE Class 10 Japanese.' },
+  { title: 'Japanese — JLPT N4, NAT-Q3', detail: 'NAT-Q3 (2025) is equivalent to JLPT N3. Perfect score in CBSE Class X Japanese.' },
 ]
 
 export const certifications = [
-  'CS50 (edX)',
-  'Python (NPTEL)',
-  'DSA & Algorithms (NPTEL)',
-  'Software Testing (NPTEL)',
   'OOP in Java (Oracle)',
+  'DSA & Algorithms (NPTEL)',
+  'Database SQL',
+  'Software Testing (NPTEL)',
+  'Python (NPTEL)',
+  'CS50 (edX)',
   'CCNAv7 Enterprise',
   'Red Hat System Administration II',
-  'Database SQL',
 ]
