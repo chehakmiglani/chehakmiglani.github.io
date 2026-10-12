@@ -39,8 +39,14 @@ function ProjectVisual({ p, i }) {
     <div className="pv" style={{ '--h': p.hue }}>
       <div className="pv-grid" />
       <div className="pv-orb" />
-      <span className="pv-num">0{i + 1}</span>
       <span className="pv-name">{p.name}</span>
+      {p.image && (
+        <div className="pv-shot">
+          <div className="frame-bar"><i /><i /><i /></div>
+          <img src={p.image} alt={`${p.name} interface`} loading="lazy" />
+        </div>
+      )}
+      <span className="pv-num">0{i + 1}</span>
       <div className="pv-chips">
         {p.meta.stack.map(s => <span key={s}>{s}</span>)}
       </div>

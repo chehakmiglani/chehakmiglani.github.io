@@ -57,6 +57,8 @@ export const projects = [
     category: 'AI Career Platform',
     tags: ['Vue 3', 'TypeScript', 'FastAPI', 'OpenAI', 'JWT', 'Playwright'],
     hue: 152,
+    image: '/work/oraculum.jpg',
+    imageNote: 'Live site · oraculum-iota.vercel.app',
     summary:
       'AI career intelligence platform. It analyses resumes, generates career roadmaps and writes cover letters, all powered by LLMs.',
     meta: { role: 'Full-stack + AI integration', status: 'Live', type: 'AI platform', stack: ['Vue 3', 'FastAPI', 'OpenAI'] },
@@ -76,6 +78,8 @@ export const projects = [
     category: 'Food Delivery',
     tags: ['React', 'Tailwind', 'Node.js', 'Express', 'MongoDB', 'Razorpay'],
     hue: 28,
+    image: '/work/rotino.jpg',
+    imageNote: 'Interface illustration',
     summary:
       'Full-stack food ordering platform with role-based access and integrated payments.',
     meta: { role: 'Full-stack developer', status: 'Live', type: 'Web platform', stack: ['React', 'Node.js', 'MongoDB'] },
@@ -95,6 +99,8 @@ export const projects = [
     category: 'Disaster Response',
     tags: ['PHP', 'MySQL', 'Leaflet.js', 'JavaScript', 'Robotics sim'],
     hue: 212,
+    image: '/work/brahma.jpg',
+    imageNote: 'Interface illustration',
     summary:
       'Real-time disaster response platform that coordinates simulated drones and quadbots on a live map.',
     meta: { role: 'Full-stack developer', status: 'SAP Hackfest finalist', type: 'Hackathon build', stack: ['PHP', 'MySQL', 'Leaflet.js'] },

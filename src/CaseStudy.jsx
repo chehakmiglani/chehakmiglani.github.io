@@ -44,6 +44,16 @@ export default function CaseStudy({ project: p }) {
         </aside>
       </header>
 
+      {p.image && (
+        <figure className="showcase reveal">
+          <div className="frame">
+            <div className="frame-bar"><i /><i /><i />{p.live && <span>{p.live.replace('https://', '')}</span>}</div>
+            <img src={p.image} alt={`${p.name} interface`} />
+          </div>
+          <figcaption className="label">{p.imageNote}</figcaption>
+        </figure>
+      )}
+
       <section className="card snapshot reveal">
         <p className="label">System snapshot</p>
         <div className="snap-grid">
