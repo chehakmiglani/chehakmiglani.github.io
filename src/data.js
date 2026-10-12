@@ -15,6 +15,22 @@ export const profile = {
   resume: '', // optional: put a PDF in /public and set e.g. '/resume.pdf' — a download button appears in the dock
 }
 
+export const hero = {
+  pre: 'Engineering software',
+  accent: 'that learns.',
+  sub: 'I’m Chehak, a full-stack engineer working across Spring Boot, React and FastAPI, with the machine-learning pieces that make products smarter.',
+}
+
+export const companies = ['Infosys', 'Nagarro', 'TechDost', 'Manipal University']
+
+// Counters on the home page. `value` animates up from 0.
+export const stats = [
+  { value: 3, suffix: '', label: 'internships shipped', note: 'Infosys · Nagarro · TechDost' },
+  { value: 1000, suffix: '+', label: 'concurrent orders', note: 'Rotino load test' },
+  { value: 100, suffix: '+', label: 'resumes / day', note: 'Oraculum in production' },
+  { value: 8.91, suffix: '', label: 'CGPA', note: 'Dean’s List ×3', decimals: 2 },
+]
+
 export const marquee = [
   'Full-stack systems',
   'LLM applications',
@@ -56,7 +72,7 @@ export const projects = [
     name: 'Oraculum',
     category: 'AI Career Platform',
     tags: ['Vue 3', 'TypeScript', 'FastAPI', 'OpenAI', 'JWT', 'Playwright'],
-    hue: 152,
+    hue: 262,
     image: '/work/oraculum.jpg',
     imageNote: 'Live site · oraculum-iota.vercel.app',
     summary:
@@ -98,7 +114,7 @@ export const projects = [
     name: 'Brahma DMS',
     category: 'Disaster Response',
     tags: ['PHP', 'MySQL', 'Leaflet.js', 'JavaScript', 'Robotics sim'],
-    hue: 212,
+    hue: 188,
     image: '/work/brahma.jpg',
     imageNote: 'Interface illustration',
     summary:

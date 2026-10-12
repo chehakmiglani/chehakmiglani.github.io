@@ -1,5 +1,6 @@
 import { Link } from './router.jsx'
 import { Arrow } from './Chrome.jsx'
+import { Scramble, Tilt } from './fx.jsx'
 import { projects } from './data.js'
 
 export default function CaseStudy({ project: p }) {
@@ -13,85 +14,82 @@ export default function CaseStudy({ project: p }) {
   ]
   return (
     <article className="case" style={{ '--h': p.hue }}>
+      <div className="case-aurora" aria-hidden="true" />
       <div className="case-top">
-        <Link to="/#work" className="label back"><Arrow dir="w" /> Return to work</Link>
-        <span className="label dim">Case study / 0{idx + 1}</span>
+        <Link to="/#work" className="back mono-label"><Arrow dir="w" /> All projects</Link>
+        <span className="mono-label">case_study / 0{idx + 1}</span>
       </div>
 
       <header className="case-hero">
-        <div className="case-glow" aria-hidden="true" />
-        <div className="case-title">
-          <h1 className="display">{p.name}</h1>
-          <p className="body lead">{p.summary}</p>
-        </div>
-        <aside className="case-side">
-          <div className="card case-meta">
-            <dl>
-              {meta.map(([k, v, live]) => (
-                <div key={k}>
-                  <dt className="label">{k}</dt>
-                  <dd>{live && <span className="dot" />}{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="label">Core stack</p>
-            <ul className="chips">{p.tags.map(t => <li key={t}>{t}</li>)}</ul>
-          </div>
+        <div>
+          <p className="eyebrow"><span>0{idx + 1}</span> / {p.category.toLowerCase()}</p>
+          <h1 className="case-title"><Scramble text={p.name} /></h1>
+          <p className="lede">{p.summary}</p>
           <div className="case-actions">
-            {p.live && <a className="cta" href={p.live} target="_blank" rel="noreferrer">Open live site <Arrow /></a>}
-            {p.code && <a className="cta ghost" href={p.code} target="_blank" rel="noreferrer">Inspect repository <Arrow /></a>}
+            {p.live && <a className="btn primary" href={p.live} target="_blank" rel="noreferrer">Open live site <Arrow /></a>}
+            {p.code && <a className="btn ghost" href={p.code} target="_blank" rel="noreferrer">View source <Arrow /></a>}
           </div>
-        </aside>
+        </div>
+        <dl className="case-meta glass">
+          {meta.map(([k, v, live]) => (
+            <div key={k}>
+              <dt className="mono-label">{k}</dt>
+              <dd>{live && <span className="dot" />}{v}</dd>
+            </div>
+          ))}
+          <div className="full">
+            <dt className="mono-label">Stack</dt>
+            <dd><ul className="chips">{p.tags.map(t => <li key={t}>{t}</li>)}</ul></dd>
+          </div>
+        </dl>
       </header>
 
       {p.image && (
         <figure className="showcase reveal">
-          <div className="frame">
+          <Tilt className="frame" max={4}>
             <div className="frame-bar"><i /><i /><i />{p.live && <span>{p.live.replace('https://', '')}</span>}</div>
             <img src={p.image} alt={`${p.name} interface`} />
-          </div>
-          <figcaption className="label">{p.imageNote}</figcaption>
+            <div className="glare" />
+          </Tilt>
+          <figcaption className="mono-label">{p.imageNote}</figcaption>
         </figure>
       )}
 
-      <section className="card snapshot reveal">
-        <p className="label">System snapshot</p>
-        <div className="snap-grid">
-          {[['◐', 'Challenge', p.challenge], ['◇', 'Approach', p.approach], ['◎', 'Outcome', p.outcome]].map(([ic, t, d]) => (
-            <div key={t}>
-              <h3><span className="ic">{ic}</span>{t}</h3>
-              <p className="body">{d}</p>
-            </div>
-          ))}
-        </div>
+      <section className="snap reveal">
+        {[['01', 'Challenge', p.challenge], ['02', 'Approach', p.approach], ['03', 'Outcome', p.outcome]].map(([n, t, d]) => (
+          <div key={t} className="snap-card glass">
+            <span className="mono-label">{n} · {t}</span>
+            <p>{d}</p>
+          </div>
+        ))}
       </section>
 
       <section className="method reveal">
         <div>
-          <p className="label">Methodology</p>
+          <p className="eyebrow"><span>//</span> methodology</p>
           <p className="method-text">{p.methodology}</p>
         </div>
-        <div className="card metrics">
-          <p className="label">Delivery metrics</p>
-          <ul>{p.metrics.map(m => <li key={m}><span className="dot" />{m}</li>)}</ul>
+        <div className="metrics glass">
+          <p className="mono-label">Delivery metrics</p>
+          <ul>{p.metrics.map(m => <li key={m}><span className="tick">✓</span>{m}</li>)}</ul>
         </div>
       </section>
 
-      <section className="flow">
-        <p className="label center reveal">Execution flow</p>
+      <section className="pipeline reveal">
+        <p className="eyebrow"><span>//</span> execution pipeline</p>
         <ol>
           {p.flow.map((f, i) => (
-            <li key={f} className="reveal" style={{ '--d': `${i * 80}ms` }}>
-              <span className="node" />
-              <span className="flow-pill"><b>0{i + 1}</b>{f}</span>
+            <li key={f} style={{ '--i': i }}>
+              <span className="pipe-node">{String(i + 1).padStart(2, '0')}</span>
+              <span className="pipe-label">{f}</span>
             </li>
           ))}
         </ol>
       </section>
 
-      <Link to={`/work/${next.slug}`} className="next">
-        <span className="label">Next case study</span>
-        <span className="display">{next.name} <Arrow dir="e" /></span>
+      <Link to={`/work/${next.slug}`} className="next glass">
+        <span className="mono-label">Next project</span>
+        <span className="next-name">{next.name} <Arrow dir="e" /></span>
       </Link>
     </article>
   )
