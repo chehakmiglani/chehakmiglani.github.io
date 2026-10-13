@@ -25,7 +25,7 @@ export function Marquee({ items, reverse, className = '' }) {
   )
 }
 
-const SECTION_IDS = ['japanese', 'work', 'about', 'experience', 'research', 'contact']
+const SECTION_IDS = ['japanese', 'work', 'about', 'experience', 'research', 'awards', 'contact']
 
 function useActiveSection() {
   const [active, setActive] = useState('')
@@ -179,7 +179,7 @@ export function Footer({ onPalette }) {
   return (
     <footer id="contact" className="footer">
       <div className="footer-aurora" aria-hidden="true" />
-      <p className="eyebrow reveal"><span>06</span> / {t.contactEyebrow}</p>
+      <p className="eyebrow reveal"><span>07</span> / {t.contactEyebrow}</p>
       <h2 className="footer-title reveal">{t.contactTitle[0]}<br /><span className="grad">{t.contactTitle[1]}</span></h2>
       <p className="lede reveal">{t.contactLede}</p>
       <div className="footer-ctas reveal">

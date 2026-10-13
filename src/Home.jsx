@@ -257,28 +257,68 @@ function Experience() {
 
 function Research() {
   const { t, c } = useLang()
+  const r = c.research
   return (
-    <section id="research" className="section">
+    <section id="research" className="section research">
       <Eyebrow n="05">{t.researchEyebrow}</Eyebrow>
-      <div className="research-grid">
-        <a className="paper glass reveal" href={c.profile.scholar} target="_blank" rel="noreferrer">
-          <div className="paper-viz" aria-hidden="true">
-            {Array.from({ length: 24 }).map((_, i) => <i key={i} style={{ '--v': `${30 + Math.abs(Math.sin(i * 1.7)) * 60}%`, '--i': i }} />)}
+      <h2 className="h2 reveal">{t.researchTitle[0]}<span className="grad">{t.researchTitle[1]}</span></h2>
+      <article className="paper-feature glass reveal">
+        <div className="paper-head">
+          <div>
+            <p className="mono-label">{r.date} · {t.paper}</p>
+            <h3>{r.title}</h3>
+            <p className="body">{r.summary}</p>
+            <ul className="chips">{(r.tools || []).map(x => <li key={x}>{x}</li>)}</ul>
+            <a className="btn ghost paper-btn" href={c.profile.scholar} target="_blank" rel="noreferrer">{t.readScholar} <Arrow /></a>
           </div>
-          <p className="mono-label">{c.research.date} · {t.paper}</p>
-          <h3>{c.research.title}</h3>
-          <p className="body">{c.research.summary}</p>
-          <span className="link">{t.readScholar} <Arrow /></span>
-        </a>
-        <div className="awards">
-          {c.recognition.map(([title, d], i) => (
-            <div key={title} className="award glass reveal" style={{ '--d': `${i * 70}ms` }}>
-              <span className="mono-label">0{i + 1}</span>
-              <h4>{title}</h4>
-              <p>{d}</p>
-            </div>
-          ))}
+          <div className="results">
+            <p className="mono-label">{t.keyResults}</p>
+            {r.results.map(x => (
+              <div key={x.label} className="result">
+                <p className="result-num">−<Counter value={x.value} />%</p>
+                <p className="result-label">{x.label}</p>
+                <p className="mono-label">{x.note}</p>
+                <div className="result-bar"><i style={{ '--w': `${100 - x.value}%` }} /></div>
+              </div>
+            ))}
+          </div>
         </div>
+        <div className="ensemble">
+          <p className="mono-label">{t.method}</p>
+          <ol>
+            {r.pipeline.map(([k, v], i) => (
+              <li key={k} style={{ '--i': i }}>
+                <span className="ens-node">{i === 1 ? <><i /><i /><i /></> : <b />}</span>
+                <strong>{k}</strong>
+                <span>{v}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </article>
+    </section>
+  )
+}
+
+function Awards() {
+  const { t, c } = useLang()
+  return (
+    <section id="awards" className="section awards-sec">
+      <Eyebrow n="06">{t.awardsEyebrow}</Eyebrow>
+      <h2 className="h2 reveal">{t.awardsTitle[0]}<span className="grad">{t.awardsTitle[1]}</span></h2>
+      <div className="award-grid">
+        {c.awards.map((a, i) => (
+          <Tilt key={a.title} className={`award-card glass reveal ${i < 2 ? 'big' : ''}`} max={5} style={{ '--d': `${i * 80}ms` }}>
+            <div className="award-top">
+              <span className="mono-label">{a.kind}</span>
+              <span className="award-idx" aria-hidden="true">0{i + 1}</span>
+            </div>
+            <p className="award-rank grad">{a.rank}</p>
+            <h3>{a.title}</h3>
+            <p className="body">{a.detail}</p>
+            <div className="glare" />
+          </Tilt>
+        ))}
       </div>
       <div className="certs reveal">
         <p className="mono-label">{t.certs}</p>
@@ -298,6 +338,7 @@ export default function Home() {
       <About />
       <Experience />
       <Research />
+      <Awards />
     </>
   )
 }

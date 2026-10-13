@@ -183,14 +183,26 @@ export const experience = [
 export const research = {
   title: 'Hybrid Meta-Ensemble Learning for PM10 Concentration Prediction',
   date: 'Apr 2025',
-  summary: 'A hybrid meta-ensemble model (scikit-learn, XGBoost) for PM10 air-quality prediction, with 12% lower MAE and 15% lower RMSE than baseline models.',
+  summary: 'A hybrid meta-ensemble model for predicting PM10 air-quality concentration. Several base learners are combined by a meta-learner, which produced more accurate forecasts than any single baseline model.',
+  results: [
+    { value: 12, label: 'lower MAE', note: 'vs. baseline models' },
+    { value: 15, label: 'lower RMSE', note: 'vs. baseline models' },
+  ],
+  pipeline: [
+    ['Data', 'Pandas · NumPy'],
+    ['Base learners', 'scikit-learn · XGBoost'],
+    ['Meta-learner', 'stacked ensemble'],
+    ['Forecast', 'PM10 concentration'],
+  ],
+  tools: ['Python', 'scikit-learn', 'XGBoost', 'Pandas', 'NumPy'],
 }
 
-export const recognition = [
-  ['Code with Cisco 2025', '1st Runner-up · smart home automation'],
-  ['SAP PSGitech Hackfest', 'Runner-up · disaster management with drones & quadbots'],
-  ['Dean’s List', 'Semesters 1, 2 and 4'],
-  ['Japanese', 'JLPT N4 · NAT-Q3 (≈ N3) · perfect score, CBSE X'],
+// Awards section. `kind` groups the cards.
+export const awards = [
+  { kind: 'Hackathon', title: 'Code with Cisco 2025', rank: '1st Runner-up', detail: 'Smart home automation project.' },
+  { kind: 'Hackathon', title: 'SAP PSGitech Hackfest', rank: 'Runner-up', detail: 'Brahma DMS: disaster management with drones and quadbots.' },
+  { kind: 'Academic', title: 'Dean’s List', rank: '3 semesters', detail: 'Semesters 1, 2 and 4, with a GPA above 9.0.' },
+  { kind: 'Language', title: 'CBSE Class X Japanese', rank: '100%', detail: 'Award for a perfect score in the board exam.' },
 ]
 
 export const certifications = [

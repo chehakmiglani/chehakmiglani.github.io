@@ -123,14 +123,24 @@ export default {
 
   research: {
     date: '2025年4月',
-    summary: 'scikit-learn・XGBoost を用いた、PM10 大気質予測のためのハイブリッド・メタアンサンブル学習モデル。ベースライン比で MAE を 12%、RMSE を 15% 改善しました。',
+    summary: 'PM10（大気中の粒子状物質）濃度を予測する、ハイブリッド・メタアンサンブル学習モデル。複数のベース学習器をメタ学習器で統合し、単体のベースラインモデルより高い精度を実現しました。',
+    results: [
+      { value: 12, label: 'MAE 改善', note: 'ベースライン比' },
+      { value: 15, label: 'RMSE 改善', note: 'ベースライン比' },
+    ],
+    pipeline: [
+      ['データ', 'Pandas · NumPy'],
+      ['ベース学習器', 'scikit-learn · XGBoost'],
+      ['メタ学習器', 'スタッキング'],
+      ['予測', 'PM10 濃度'],
+    ],
   },
 
-  recognition: [
-    ['Code with Cisco 2025', '準優勝 · スマートホームオートメーション'],
-    ['SAP PSGitech Hackfest', '準優勝 · ドローン・クアッドボットによる災害管理'],
-    ['Dean’s List', '第 1・第 2・第 4 学期に表彰'],
-    ['日本語', 'JLPT N4 · NAT 3Q（N3 相当）· CBSE 10年生で満点'],
+  awards: [
+    { kind: 'ハッカソン', title: 'Code with Cisco 2025', rank: '準優勝（2位）', detail: 'スマートホームオートメーションのプロジェクト。' },
+    { kind: 'ハッカソン', title: 'SAP PSGitech Hackfest', rank: '準優勝', detail: 'Brahma DMS：ドローンとクアッドボットによる災害管理。' },
+    { kind: '学業', title: 'Dean’s List', rank: '3 学期', detail: '第 1・第 2・第 4 学期に GPA 9.0 以上で表彰。' },
+    { kind: '語学', title: 'CBSE 10年生 日本語', rank: '満点', detail: '全国統一試験の日本語で満点を取得し表彰。' },
   ],
 
   certifications: [
