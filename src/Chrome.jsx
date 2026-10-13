@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, go } from './router.jsx'
-import { profile, projects } from './data.js'
+import { useLang } from './i18n.jsx'
 
 export function Arrow({ dir = 'ne' }) {
   const d = {
@@ -17,7 +17,7 @@ export function Arrow({ dir = 'ne' }) {
 }
 
 export function Marquee({ items, reverse, className = '' }) {
-  const row = items.map((t, i) => <span key={i}>{t}</span>)
+  const row = items.map((x, i) => <span key={i}>{x}</span>)
   return (
     <div className={`marquee ${reverse ? 'rev' : ''} ${className}`} aria-hidden="true">
       <div className="marquee-track">{row}{row}</div>
@@ -25,20 +25,14 @@ export function Marquee({ items, reverse, className = '' }) {
   )
 }
 
-const SECTIONS = [
-  ['work', 'Work'],
-  ['about', 'About'],
-  ['experience', 'Experience'],
-  ['research', 'Research'],
-  ['contact', 'Contact'],
-]
+const SECTION_IDS = ['japanese', 'work', 'about', 'experience', 'research', 'contact']
 
 function useActiveSection() {
   const [active, setActive] = useState('')
   useEffect(() => {
     const onScroll = () => {
       let cur = ''
-      for (const [id] of SECTIONS) {
+      for (const id of SECTION_IDS) {
         const el = document.getElementById(id)
         if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) cur = id
       }
@@ -51,7 +45,19 @@ function useActiveSection() {
   return active
 }
 
+export function LangSwitch() {
+  const { lang, setLang } = useLang()
+  return (
+    <div className="lang-switch glass" role="group" aria-label="Language">
+      <button className={lang === 'en' ? 'on' : ''} onClick={() => setLang('en')} aria-pressed={lang === 'en'}>EN</button>
+      <button className={lang === 'ja' ? 'on' : ''} onClick={() => setLang('ja')} aria-pressed={lang === 'ja'} lang="ja">日本語</button>
+      <span className="lang-thumb" style={{ transform: lang === 'ja' ? 'translateX(100%)' : 'none' }} />
+    </div>
+  )
+}
+
 export function Nav({ onPalette }) {
+  const { t } = useLang()
   const active = useActiveSection()
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
@@ -64,32 +70,37 @@ export function Nav({ onPalette }) {
     <header className={`nav ${scrolled ? 'scrolled' : ''}`}>
       <Link to="/" className="logo">chehak<span>.</span></Link>
       <nav className="nav-pill glass" aria-label="Sections">
-        {SECTIONS.map(([id, label]) => (
-          <Link key={id} to={`/#${id}`} className={active === id ? 'on' : ''}>{label}</Link>
+        {SECTION_IDS.map(id => (
+          <Link key={id} to={`/#${id}`} className={`${active === id ? 'on' : ''} ${id === 'japanese' ? 'jp-link' : ''}`}>{t.nav[id]}</Link>
         ))}
       </nav>
-      <button className="kbd-btn glass" onClick={onPalette} aria-label="Open command menu">
-        <span className="hide-sm">Search</span><span className="m-only">Menu</span><kbd>{mac ? '⌘' : 'Ctrl'}</kbd><kbd>K</kbd>
-      </button>
+      <div className="nav-right">
+        <LangSwitch />
+        <button className="kbd-btn glass" onClick={onPalette} aria-label={t.openMenu}>
+          <span className="hide-sm">{t.search}</span><span className="m-only">{t.menu}</span><kbd>{mac ? '⌘' : 'Ctrl'}</kbd><kbd>K</kbd>
+        </button>
+      </div>
     </header>
   )
 }
 
 export function CommandPalette({ open, setOpen }) {
+  const { t, c, toggle } = useLang()
   const [q, setQ] = useState('')
   const [i, setI] = useState(0)
   const [toast, setToast] = useState('')
   const input = useRef(null)
 
   const actions = useMemo(() => [
-    ...SECTIONS.map(([id, label]) => ({ group: 'Navigate', label: `Go to ${label}`, hint: `#${id}`, run: () => go(`/#${id}`) })),
-    ...projects.map(p => ({ group: 'Projects', label: p.name, hint: p.category, run: () => go(`/work/${p.slug}`) })),
-    { group: 'Contact', label: 'Copy email address', hint: profile.email, run: () => { navigator.clipboard?.writeText(profile.email); setToast('Email copied to clipboard') } },
-    { group: 'Contact', label: 'Send an email', hint: 'mailto', run: () => { window.location.href = `mailto:${profile.email}` } },
-    { group: 'Links', label: 'Open GitHub', hint: 'github.com/chehakmiglani', run: () => window.open(profile.github, '_blank') },
-    { group: 'Links', label: 'Open LinkedIn', hint: 'linkedin.com/in/chehak-miglani', run: () => window.open(profile.linkedin, '_blank') },
-    { group: 'Links', label: 'Open Google Scholar', hint: 'research', run: () => window.open(profile.scholar, '_blank') },
-  ], [])
+    { group: t.gLang, label: t.switchLang, hint: 'EN ⇄ 日本語', run: toggle },
+    ...SECTION_IDS.map(id => ({ group: t.gNav, label: `${t.go} ${t.nav[id]}`, hint: `#${id}`, run: () => go(`/#${id}`) })),
+    ...c.projects.map(p => ({ group: t.gProjects, label: p.name, hint: p.category, run: () => go(`/work/${p.slug}`) })),
+    { group: t.gContact, label: t.copyEmail, hint: c.profile.email, run: () => { navigator.clipboard?.writeText(c.profile.email); setToast(t.copied) } },
+    { group: t.gContact, label: t.sendEmail, hint: 'mailto', run: () => { window.location.href = `mailto:${c.profile.email}` } },
+    { group: t.gLinks, label: 'GitHub', hint: 'github.com/chehakmiglani', run: () => window.open(c.profile.github, '_blank') },
+    { group: t.gLinks, label: 'LinkedIn', hint: 'linkedin.com/in/chehak-miglani', run: () => window.open(c.profile.linkedin, '_blank') },
+    { group: t.gLinks, label: 'Google Scholar', hint: 'research', run: () => window.open(c.profile.scholar, '_blank') },
+  ], [t, c])
 
   const list = actions.filter(a => (a.label + a.hint + a.group).toLowerCase().includes(q.toLowerCase()))
 
@@ -102,7 +113,7 @@ export function CommandPalette({ open, setOpen }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
   useEffect(() => { if (open) { setQ(''); setI(0); setTimeout(() => input.current?.focus(), 30) } }, [open])
-  useEffect(() => { if (!toast) return; const t = setTimeout(() => setToast(''), 1800); return () => clearTimeout(t) }, [toast])
+  useEffect(() => { if (!toast) return; const x = setTimeout(() => setToast(''), 1800); return () => clearTimeout(x) }, [toast])
 
   const run = a => { if (!a) return; setOpen(false); a.run() }
   const onKey = e => {
@@ -116,18 +127,18 @@ export function CommandPalette({ open, setOpen }) {
     <>
       {open && (
         <div className="palette-backdrop" onClick={() => setOpen(false)}>
-          <div className="palette glass" role="dialog" aria-label="Command menu" onClick={e => e.stopPropagation()}>
+          <div className="palette glass" role="dialog" aria-label={t.openMenu} onClick={e => e.stopPropagation()}>
             <div className="palette-input">
               <span className="t-prompt">›</span>
-              <input ref={input} value={q} onChange={e => { setQ(e.target.value); setI(0) }} onKeyDown={onKey} placeholder="Type a command or search…" />
+              <input ref={input} value={q} onChange={e => { setQ(e.target.value); setI(0) }} onKeyDown={onKey} placeholder={t.placeholder} />
               <kbd>esc</kbd>
             </div>
             <ul>
-              {list.length === 0 && <li className="empty">No results for “{q}”</li>}
+              {list.length === 0 && <li className="empty">{t.noResults} “{q}”</li>}
               {list.map((a, idx) => {
                 const head = a.group !== lastGroup ? (lastGroup = a.group) : null
                 return (
-                  <li key={a.label}>
+                  <li key={a.group + a.label}>
                     {head && <p className="palette-group">{head}</p>}
                     <button className={idx === i ? 'sel' : ''} onMouseEnter={() => setI(idx)} onClick={() => run(a)}>
                       <span>{a.label}</span><small>{a.hint}</small>
@@ -136,7 +147,7 @@ export function CommandPalette({ open, setOpen }) {
                 )
               })}
             </ul>
-            <div className="palette-foot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> select</span></div>
+            <div className="palette-foot"><span><kbd>↑</kbd><kbd>↓</kbd> {t.navigate}</span><span><kbd>↵</kbd> {t.select}</span></div>
           </div>
         </div>
       )}
@@ -157,42 +168,43 @@ export function CursorGlow() {
 
 function useClock(tz) {
   const fmt = () => new Date().toLocaleTimeString('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', second: '2-digit' })
-  const [t, setT] = useState(fmt)
-  useEffect(() => { const id = setInterval(() => setT(fmt()), 1000); return () => clearInterval(id) }, [])
-  return t
+  const [x, setX] = useState(fmt)
+  useEffect(() => { const id = setInterval(() => setX(fmt()), 1000); return () => clearInterval(id) }, [])
+  return x
 }
 
 export function Footer({ onPalette }) {
-  const time = useClock(profile.timezone)
+  const { t, c } = useLang()
+  const time = useClock(c.profile.timezone)
   return (
     <footer id="contact" className="footer">
       <div className="footer-aurora" aria-hidden="true" />
-      <p className="eyebrow reveal"><span>05</span> / contact</p>
-      <h2 className="footer-title reveal">Let’s build something<br /><span className="grad">that matters.</span></h2>
-      <p className="lede reveal">I’m open to software engineering and ML roles. The fastest way to reach me is email.</p>
+      <p className="eyebrow reveal"><span>06</span> / {t.contactEyebrow}</p>
+      <h2 className="footer-title reveal">{t.contactTitle[0]}<br /><span className="grad">{t.contactTitle[1]}</span></h2>
+      <p className="lede reveal">{t.contactLede}</p>
       <div className="footer-ctas reveal">
-        <a className="btn primary" href={`mailto:${profile.email}`}>{profile.email} <Arrow /></a>
-        <button className="btn ghost" onClick={onPalette}>Open command menu <kbd>K</kbd></button>
+        <a className="btn primary" href={`mailto:${c.profile.email}`}>{c.profile.email} <Arrow /></a>
+        <button className="btn ghost" onClick={onPalette}>{t.openMenu} <kbd>K</kbd></button>
       </div>
       <div className="footer-grid">
         <div>
-          <p className="mono-label">Elsewhere</p>
-          <a href={profile.github} target="_blank" rel="noreferrer">GitHub <Arrow /></a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
-          <a href={profile.scholar} target="_blank" rel="noreferrer">Google Scholar <Arrow /></a>
+          <p className="mono-label">{t.elsewhere}</p>
+          <a href={c.profile.github} target="_blank" rel="noreferrer">GitHub <Arrow /></a>
+          <a href={c.profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
+          <a href={c.profile.scholar} target="_blank" rel="noreferrer">Google Scholar <Arrow /></a>
         </div>
         <div>
-          <p className="mono-label">Local time · IST</p>
+          <p className="mono-label">{t.localTime}</p>
           <p className="clock">{time}</p>
         </div>
         <div>
-          <p className="mono-label">Status</p>
-          <p className="status"><span className="dot" />{profile.status}</p>
+          <p className="mono-label">{t.statusLabel}</p>
+          <p className="status"><span className="dot" />{c.profile.status}</p>
         </div>
       </div>
       <div className="footer-base">
-        <span>© {new Date().getFullYear()} {profile.name}</span>
-        <span>Built with React + Vite · hand-coded canvas</span>
+        <span>© {new Date().getFullYear()} {c.profile.name}</span>
+        <span>{t.builtWith}</span>
       </div>
     </footer>
   )

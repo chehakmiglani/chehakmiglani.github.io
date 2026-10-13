@@ -7,7 +7,8 @@ export const profile = {
   role: 'Software Engineer · Full-stack & ML',
   location: 'Delhi, India',
   timezone: 'Asia/Kolkata',
-  status: 'Open to SWE & ML roles',
+  nameKana: 'チェハク・ミグラニ',
+  status: 'Open to roles in India & Japan',
   email: 'chehakmiglani.2004@gmail.com',
   github: 'https://github.com/chehakmiglani',
   linkedin: 'https://www.linkedin.com/in/chehak-miglani',
@@ -15,10 +16,30 @@ export const profile = {
   resume: '', // optional: put a PDF in /public and set e.g. '/resume.pdf' — a download button appears in the dock
 }
 
+// The hero types and cycles through these roles.
+export const roles = ['Full-stack engineer', 'Backend developer (Java · Spring Boot)', 'AI / ML builder', 'Japanese-speaking engineer']
+
 export const hero = {
-  pre: 'Engineering software',
-  accent: 'that learns.',
-  sub: 'I’m Chehak, a full-stack engineer working across Spring Boot, React and FastAPI, with the machine-learning pieces that make products smarter.',
+  sub: 'I build products end to end, from idea to production, across Spring Boot, React and FastAPI. Comfortable working in English and Japanese.',
+}
+
+// The dedicated Japanese section.
+export const japan = {
+  title: ['Ready to work', 'in Japan.'],
+  sub: '日本で働く準備ができています。',
+  body: [
+    'Japanese is a big part of who I am. I’ve passed JLPT N4 and NAT 3Q (equivalent to N3), and I can read, write and hold conversations in Japanese, including in a work setting.',
+    'I’m looking for software development and web engineering roles, and I’m flexible about working in Japan.',
+  ],
+  skills: ['Reading', 'Writing', 'Conversation', 'Work in Japanese'],
+  current: 'Current level',
+  certified: 'Certified',
+  timeline: [
+    { date: '2020', title: 'CBSE Class X Japanese', note: 'Perfect score (100%) award' },
+    { date: '2024.06', title: 'JLPT N4', note: 'Passed' },
+    { date: '2024.06', title: 'NAT 4Q', note: 'Passed' },
+    { date: '2025.06', title: 'NAT 3Q', note: 'Passed · equivalent to JLPT N3' },
+  ],
 }
 
 export const companies = ['Infosys', 'Nagarro', 'TechDost', 'Manipal University']

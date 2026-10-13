@@ -177,6 +177,35 @@ export function Magnetic({ as: Tag = 'a', className = '', children, ...rest }) {
   return <Tag ref={ref} className={`magnetic ${className}`} onPointerMove={onMove} onPointerLeave={onLeave} {...rest}>{children}</Tag>
 }
 
+/* Types a role, holds, deletes it, then types the next one. */
+export function RoleTyper({ roles }) {
+  const [i, setI] = useState(0)
+  const [text, setText] = useState('')
+  const [phase, setPhase] = useState('type')
+  useEffect(() => { setI(0); setText(''); setPhase('type') }, [roles])
+  useEffect(() => {
+    if (reduced()) { setText(roles[0]); return }
+    const word = roles[i % roles.length]
+    let t
+    if (phase === 'type') {
+      if (text.length < word.length) t = setTimeout(() => setText(word.slice(0, text.length + 1)), 55)
+      else t = setTimeout(() => setPhase('hold'), 0)
+    } else if (phase === 'hold') {
+      t = setTimeout(() => setPhase('delete'), 1900)
+    } else {
+      if (text.length > 0) t = setTimeout(() => setText(text.slice(0, -1)), 28)
+      else { setI(x => x + 1); setPhase('type') }
+    }
+    return () => clearTimeout(t)
+  }, [text, phase, i, roles])
+  return (
+    <span className="role-typer" aria-live="polite">
+      <span className="sr-only">{roles.join(', ')}</span>
+      <span aria-hidden="true" className="grad">{text}</span><span className="type-caret" aria-hidden="true" />
+    </span>
+  )
+}
+
 /* Terminal that types its lines once visible. */
 export function Typer({ lines, prompt = '$ whoami --verbose' }) {
   const [ref, seen] = useInView({ threshold: 0.4 })

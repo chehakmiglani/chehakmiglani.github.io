@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { usePath, Link } from './router.jsx'
-import { profile, projects } from './data.js'
+import { useLang } from './i18n.jsx'
 import Home from './Home.jsx'
 import CaseStudy from './CaseStudy.jsx'
 import { Nav, CommandPalette, CursorGlow, Footer } from './Chrome.jsx'
@@ -18,24 +18,25 @@ function useReveal(key) {
 }
 
 export default function App() {
+  const { t, c, lang } = useLang()
   const path = usePath().replace(/\/+$/, '') || '/'
   const match = path.match(/^\/work\/([\w-]+)$/)
-  const project = match && projects.find(p => p.slug === match[1])
+  const project = match && c.projects.find(p => p.slug === match[1])
   const [palette, setPalette] = useState(false)
-  useReveal(path)
+  useReveal(path + lang)
 
   useEffect(() => {
-    document.title = project ? `${project.name} — ${profile.name}` : `${profile.name} — ${profile.role}`
-  }, [project])
+    document.title = project ? `${project.name} — ${c.profile.name}` : `${c.profile.name} — ${c.profile.role}`
+  }, [project, c])
 
   let page
-  if (project) page = <CaseStudy project={project} />
+  if (project) page = <CaseStudy slug={project.slug} />
   else if (path === '/') page = <Home />
   else page = (
     <section className="notfound">
       <p className="mono-label">error 404 · route_not_found</p>
-      <h1 className="h2">This page drifted <span className="grad">out of range.</span></h1>
-      <Link to="/" className="btn primary">Return home</Link>
+      <h1 className="h2">{t.notFound[0]}<span className="grad">{t.notFound[1]}</span></h1>
+      <Link to="/" className="btn primary">{t.home}</Link>
     </section>
   )
 
